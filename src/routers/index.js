@@ -1,7 +1,7 @@
 import {Switch, Route, Router} from 'react-router-dom';
 import React from 'react';
 import history from './history';
-import {LoginPage} from '../pages/login-page';
+import {LoginPage} from '../pages/LoginPage';
 import HomePage from '../pages/HomePage';
 
 export default function Routers() {
