@@ -1,0 +1,86 @@
+
+.swal2-modal {
+  padding: 0 !important;
+}
+
+.swal2-modal .swal2-content {
+  padding: 0 !important;
+  min-height: 90px;
+}
+
+.dialog-alert {
+  padding: 10px;
+}
+
+.dialog-alert .footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.dialog-alert .title {
+  text-align: left;
+  font-family: RalewaySemiBold;
+}
+
+.dialog-alert .text-message {
+  text-align: left;
+  padding-top: 10px;
+
+}
+
+.dialog-button {
+  border: 0;
+  outline: none;
+  border-radius: var(--radius);
+  padding: 7px;
+  min-width: 58px;
+  background: var(--successColor);
+  color: var(--whiteColor);
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+.dialog-alert .btn-ok {
+  @extend .dialog-button;
+}
+
+.dialog-alert .header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dialog-alert .icon-close {
+  width: 24px;
+  height: 24px;
+  background-color: var(--successColor);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2px;
+  color: var(--whiteColor);
+  border-radius: 100%;
+}
+
+.dialog-alert .btn-cancel {
+  margin-left: 10px;
+  @extend .dialog-button;
+}
+
+.dialog-alert.confirm .btn-ok {
+  background: var(--dangerColor);
+}
+
+.dialog-alert.confirm .btn-cancel {
+  background: var(--dangerColor);
+}
+
+.dialog-alert.confirm .icon-close {
+  background: var(--dangerColor);
+
+}
+
+.dialog-content-messages {
+  min-height: 75px;
+}
