@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-import './message.scss'
+import './styles.scss'
 
 const MessageAlert = withReactContent(Swal)
 
