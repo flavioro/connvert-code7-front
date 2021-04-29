@@ -1,7 +1,10 @@
 import React, {useState} from 'react'
+
 import {SignInForm} from './SignInForm'
 import {SignUpForm} from './SignUpForm'
 import tools from '../../tools'
+import logo from '../../assets/imgs/logo.svg'
+import './LoginPage.scss'
 
 export function LoginPage(props) {
   const [isSingIn, setSignIn] = useState(true)
@@ -15,7 +18,7 @@ export function LoginPage(props) {
       <div className='form-login-container shadow'>
           <div className='content-form'>
               <div className='centered'>
-                  <img src="{logo}"
+                  <img src={logo}
                        className='mb-default logo-login'
                        alt='Logo'/>
               </div>
