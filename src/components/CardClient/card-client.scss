@@ -1,0 +1,22 @@
+
+.card-client{
+  padding: 10px;
+  background-color: var(--whiteColor);
+  border-radius: var(--radius);
+  height: 40px;
+  color: var(--secondaryColor);
+  cursor: pointer;
+  font-family: RalewaySemiBold;
+  margin-bottom:10px;
+
+}
+.card-client .value{
+  font-family: RalewayMedium;
+}
+
+
+.card-client.active{
+    background-color:var(--successColor);
+      color: var(--whiteColor);
+
+}
