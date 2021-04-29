@@ -1,11 +1,27 @@
 import React, {useEffect, useState} from 'react'
-import clientService from '../../services/clientService'
+import NumberFormat from 'react-number-format'
 
 import './homePage.scss'
+import clientService from '../../services/clientApi'
+import messageCustom from '../../components/Message'
+import tools from '../../tools'
+import validate from '../../validators/validate'
+import debtApi from '../../services/debtApi'
+import debtValidator from '../../validators/debtValidator'
+import InputContent from '../../components/InputContent'
+import {TableDebt} from '../../components/TableDebt'
 
 function HomePage(props) {
-  const [client, setClient] = useState([])
-  const [clients, setClients] = useState([])
+    const [debts, setDebts] = useState([])
+    const [clients, setClients] = useState([])
+    const [client, setClient] = useState([])
+    const [description, setDescription] = useState('')
+    const [value, setValue] = useState(0)
+    const [date, setDate] = useState('')
+    const [loading, setLoading] = useState(false)
+    const [pagination, setPagination] = useState({page: 1, limit: 5, pages: 1})
+    const [idUpdate, setIdUpdate] = useState(false)
+    const [isOpenSidebar, setIsOpenSidebar] = useState(false)
 
   useEffect(() => {
     getClients()
@@ -15,7 +31,106 @@ function HomePage(props) {
     const response = await clientService.getAll()
     setClients(response.data)
   }
+  
+    const clickClient = (client) => {
+        setClient(client)
+        getDebts(client.id)
+    }
 
+    const tableHeader = [
+        {label: 'Motivo', key: 'description'},
+        {label: 'Valor', key: 'value', currency: true},
+        {label: 'Data', key: 'date', date: true},
+        {label: 'Opcões', key: ''},
+    ]
+
+    const changePage = (page) => {
+        const pag = {...pagination, page: page}
+        setPagination(pag)
+        getDebts(client.id, pag)
+    }
+
+    const onEdit = (item) => {
+        cleanForm(item)
+    }
+
+    const onDelete = (item) => {
+        messageCustom.confirm({message: 'Deseja realmente excluir esta dívida?'}).then(response => {
+            if (response) {
+                debtApi.deleteDebt(item._id).then(response => {
+                    messageCustom.info({message: 'Dívida excluída com sucesso.'})
+                    getDebts(client.id)
+                    getClients()
+                }).catch(error => {
+                    messageCustom.info({message: 'Erro ao excluir a dívida.'})
+                })
+            }
+        })
+    }
+
+    const getDebts = async (clientId, pag = pagination) => {
+        await clientService.getDebtsByClient(clientId, pag).then(response => {
+            setDebts(response.data.docs)
+            delete response.data.docs
+            setPagination(response.data)
+        }).catch(error => {
+            messageCustom.info({message: error.response.data.data})
+        })
+    }
+
+    const cleanForm = (item = {}) => {
+        setDate((item.date || '').slice(0, 10))
+        setDescription((item.description || ''))
+        setValue((item.value || 0))
+        setIdUpdate((item._id || false))
+    }
+
+    const reflesh = () => {
+        cleanForm()
+        getDebts(client.id)
+        getClients()
+    }
+
+    const create = async (data) => {
+        await debtApi.saveDebt(data).then(response => {
+            messageCustom.info({message: 'Dívida cadastrada com sucesso.'})
+            reflesh()
+        }).catch(error => {
+            messageCustom.info({message: error.response.data.data})
+        })
+    }
+
+    const update = async (data) => {
+        await debtApi.updateDebt(idUpdate, data).then(response => {
+            messageCustom.info({message: 'Dívida atualizada com sucesso.'})
+            reflesh()
+        }).catch(error => {
+            messageCustom.info({message: error.response.data.data})
+        })
+    }
+    
+    const submit = async (evt) => {
+        evt.preventDefault()
+        setLoading(true)
+        const data = await validate(debtValidator, {
+            description: tools.getValue(description),
+            value: value,
+            date: tools.getValue(date),
+            client_id: client.id
+        })
+        if (data.errors) {
+            messageCustom.infoErrors(data.errors)
+        } else if (idUpdate) {
+            update(data.item)
+        } else {
+            create(data.item)
+        }
+        setLoading(false)
+    }
+    const logout = () => {
+        tools.logout()
+        props.history.replace('/login')
+    }
   return(
     <>
     <h1>HomePage</h1>

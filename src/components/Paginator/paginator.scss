@@ -1,0 +1,38 @@
+.content-paginator {
+  display: flex;
+  margin-top: 10px;
+  border-radius: var(--radius);
+}
+
+.content-paginator .item {
+  min-width: 15px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.content-paginator .item.disabled {
+  cursor: no-drop;
+}
+
+.content-paginator .item {
+  border: 1px solid var(--primaryColor);
+  color: var(--primaryColor);
+}
+
+.content-paginator .item:nth-child(2) {
+  border-left: none;
+  border-right: none;
+  background-color: var(--primaryColor);
+  color: var(--whiteColor);
+}
+
+.content-paginator .item:nth-child(1) {
+  border-radius: 10px 0 0 10px;
+}
+
+.content-paginator .item:nth-child(3) {
+  border-radius: 0 10px 10px 0;
+}

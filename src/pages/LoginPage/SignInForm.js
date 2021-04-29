@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import userService from '../../services/userService'
+import userApi from '../../services/userApi'
 import tools from '../../tools'
 import validate from '../../validators/validate'
 import {loginValidator} from '../../validators/userValidator'
@@ -21,7 +21,7 @@ export function SignInForm(props) {
     if (data.errors) {
       Message.infoErrors(data.errors)
   } else {
-      await userService.login(data.item).then(response => {
+      await userApi.login(data.item).then(response => {
           tools.setToken(response.data.token)
           setEmail('')
           setPassword('')

@@ -3,7 +3,7 @@ import message from '../../components/Message'
 import InputContent from '../../components/InputContent'
 import validate from '../../validators/validate'
 import userValidator from '../../validators/userValidator'
-import userService from '../../services/userService'
+import userApi from '../../services/userApi'
 
 export function SignUpForm() {
 
@@ -21,7 +21,7 @@ export function SignUpForm() {
         if (data.errors) {
             message.infoErrors(data.errors)
         } else {
-            await userService.register(data.item).then(response => {
+            await userApi.register(data.item).then(response => {
                 message.info({message: 'Usuário cadastrado com sucesso.'})
                 setName('')
                 setEmail('')

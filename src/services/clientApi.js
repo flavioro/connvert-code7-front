@@ -1,7 +1,7 @@
 import axios from './axios'
 import tools from '../tools'
 
-const clientService = {
+const clientApi = {
     async getAll() {
         return await axios.get('v1/clients', {
             security: true
@@ -14,4 +14,4 @@ const clientService = {
     },
 
 }
-export default clientService
+export default clientApi

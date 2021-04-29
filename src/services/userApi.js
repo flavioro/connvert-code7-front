@@ -1,6 +1,6 @@
 import axios from './axios'
 
-const userService = {
+const userApi = {
     async register(data) {
         return await axios.post('v1/users/create', data)
     },
@@ -8,4 +8,4 @@ const userService = {
         return await axios.post('v1/users/auth', data)
     }
 }
-export default userService
+export default userApi

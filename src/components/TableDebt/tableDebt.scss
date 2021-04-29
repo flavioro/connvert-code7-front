@@ -1,0 +1,48 @@
+.container-table-debts {
+  width: 100%;
+
+}
+
+.container-table-debts .table {
+  width: 100%;
+}
+
+
+.container-table-debts .table tr td, th {
+  text-align: left;
+  color: var(--secondaryColor);
+  border-bottom: 1px solid var(--contentColor);
+  padding: 10px 0px 10px 0px;
+}
+
+@media (max-width: 996px) {
+  thead {
+    display: none;
+  }
+  tr, td, th {
+    display: block;
+    width: 100%;
+  }
+  tr {
+    margin-bottom: 20px;
+    border-radius: var(--radius);
+
+  }
+  td::before {
+    content: attr(data-label);
+    display: flex;
+    color: var(--default-dark);
+    font-weight: bold;
+    flex-direction: column;
+  }
+  td {
+    text-align: left;
+  }
+}
+
+.container-table-debts .table tr .options img {
+  width: 20px;
+  padding: 2px;
+  cursor: pointer;
+  margin-left: 5px;
+}
