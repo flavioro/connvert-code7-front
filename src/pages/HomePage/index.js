@@ -3,14 +3,19 @@ import NumberFormat from 'react-number-format'
 
 import './homePage.scss'
 import clientService from '../../services/clientApi'
-import messageCustom from '../../components/Message'
+import debtApi from '../../services/debtApi'
+
 import tools from '../../tools'
 import validate from '../../validators/validate'
-import debtApi from '../../services/debtApi'
 import debtValidator from '../../validators/debtValidator'
+
+import messageCustom from '../../components/Message'
 import InputContent from '../../components/InputContent'
 import {TableDebt} from '../../components/TableDebt'
 import Sidebar from '../../components/Sidebar'
+
+import iconLogout from '../../assets/imgs/logout.svg'
+import iconMenu from '../../assets/imgs/icon-menu.svg'
 
 function HomePage(props) {
     const [debts, setDebts] = useState([])
@@ -24,15 +29,15 @@ function HomePage(props) {
     const [idUpdate, setIdUpdate] = useState(false)
     const [isOpenSidebar, setIsOpenSidebar] = useState(false)
 
-  useEffect(() => {
-    getClients()
-  }, [])
+		useEffect(() => {
+			getClients()
+		}, [])
 
-  const getClients = async () => {
-    const response = await clientService.getAll()
-    setClients(response.data)
-  }
-  
+		const getClients = async () => {
+			const response = await clientService.getAll()
+			setClients(response.data)
+		}
+		
     const clickClient = (client) => {
         setClient(client)
         getDebts(client.id)
@@ -74,7 +79,7 @@ function HomePage(props) {
             setDebts(response.data.docs)
             delete response.data.docs
             setPagination(response.data)
-        }).catch(error => {
+					}).catch(error => {
             messageCustom.info({message: error.response.data.data})
         })
     }
@@ -86,7 +91,7 @@ function HomePage(props) {
         setIdUpdate((item._id || false))
     }
 
-    const reflesh = () => {
+    const refresh = () => {
         cleanForm()
         getDebts(client.id)
         getClients()
@@ -95,16 +100,16 @@ function HomePage(props) {
     const create = async (data) => {
         await debtApi.saveDebt(data).then(response => {
             messageCustom.info({message: 'Dívida cadastrada com sucesso.'})
-            reflesh()
+            refresh()
         }).catch(error => {
-            messageCustom.info({message: error.response.data.data})
+					messageCustom.info({message: error.response.data.data})
         })
     }
 
     const update = async (data) => {
         await debtApi.updateDebt(idUpdate, data).then(response => {
             messageCustom.info({message: 'Dívida atualizada com sucesso.'})
-            reflesh()
+            refresh()
         }).catch(error => {
             messageCustom.info({message: error.response.data.data})
         })
@@ -148,13 +153,13 @@ function HomePage(props) {
 			<div className='content-form'>
 							<div className=' content-white'>
 									<div className='logout-toggle'>
-											<img src={'iconMenu'} alt='icon menu'
+											<img src={iconMenu} alt='icon menu'
 													className='toggle-menu'
-													//  onClick={() => setIsOpenSidebar(!isOpenSidebar)}
+													 onClick={() => setIsOpenSidebar(!isOpenSidebar)}
 											/>
-											<img src={'iconLogout'} alt='sair'
+											<img src={iconLogout} alt='sair'
 													className='logout'
-													//  onClick={() => logout()}
+													 onClick={() => logout()}
 											/>
 									</div>
 
