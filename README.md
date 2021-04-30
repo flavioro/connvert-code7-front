@@ -2,7 +2,7 @@
 
 Sistema de gerencialmento de dívidas (Frontend - Web)
 
-As principais tecnologias usadas foram <a  href="https://reactjs.org/">Reatjs</a>
+As principais tecnologias usadas foram <a  href="https://reactjs.org/">Reactjs</a>
 
 ## Dependências para desenvolvimento e execução
 * Reactjs >= v15.12.0
